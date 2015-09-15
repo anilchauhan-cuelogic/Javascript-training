@@ -1,0 +1,26 @@
+<script>
+	'use strict';
+
+	var users = {};
+
+	users.user = {
+	    email : "anil.chauhan@cuelogic.co.in",
+	    firstName : 'anil',
+	    lastName : 'chauhan',
+	    name: function() {
+	        return this.firstName+' '+this.lastName;
+	    }
+	}
+
+	//create user object
+	users.user1 = Object.create(users.user);
+
+	//updating object property
+	users.user1.email = 'anil.chauhan@gmail.com';
+
+	//deleting object property
+	delete users.user1.email;
+
+	document.writeln('Email:'+ users.user1.email);
+	document.writeln('Name:'+ users.user1.name());
+</script>
