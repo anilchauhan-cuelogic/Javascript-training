@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script>
+			var Person = function () { 
+				this.name = 'Anil' 
+			};
+
+			Person.prototype.age = '28';
+
+			var Dept = function () { 
+				this.dept = 'IT' 
+			}; 
+
+			Dept.prototype = new Person();
+
+			var deptObj = new Dept();
+
+		    document.writeln(deptObj.name);
+		    document.writeln(deptObj.age);
+    		document.writeln(deptObj.dept);
+		</script>
+	</body>
+</html>

@@ -8,13 +8,14 @@
 			 	this.name = name;
 				this.age = age;
 				this.gender = gender;
-				this.getGender = function(){
-									return this.gender ;
-								}; 
 			};	
 
+			Person.prototype.getGender = function() {
+				return this.gender ;
+			}
+
 			var personObj = new Person('Anil', 28, 'male');
-			console.log(personObj); //{name: "Anil", age: 28, gender: "male"}
+			console.log(personObj.getGender()); //{name: "Anil", age: 28, gender: "male"}
 			
 			//Object() constructor
 			var userObj = new Object();

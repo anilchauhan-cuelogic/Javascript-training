@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script>
+
+			var downCounter = function(num) {
+
+				if (typeof num !== 'number') {
+             		throw {
+						name: 'TypeError',
+	                 	message: 'Invalid input'
+					}; 
+				}
+
+				document.writeln(num);
+				num--;
+				
+				if (num < 0) { 
+					return false; 
+				}
+				
+				arguments.callee(num);
+		    };
+
+		    try {
+            	downCounter(10);
+         	} catch (e) {
+             	document.writeln(e.name + ': ' + e.message);
+         	}
+
+		</script>
+	</body>
+</html>
