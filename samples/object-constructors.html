@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script>
+
+			// user defined constructor
+			var Person = function(name, age, gender) {
+			 	this.name = name;
+				this.age = age;
+				this.gender = gender;
+				this.getGender = function(){
+									return this.gender ;
+								}; 
+			};	
+
+			var personObj = new Person('Anil', 28, 'male');
+			console.log(personObj); //{name: "Anil", age: 28, gender: "male"}
+			
+			//Object() constructor
+			var userObj = new Object();
+			userObj.name = 'Anil';
+			userObj.age = 28;
+			userObj.gender = 'male';
+			userObj.getGender = function() {
+									return userObj.gender;
+								};
+
+			console.log(userObj);//{name: "Anil", age: 28, gender: "male"}
+
+		</script>
+	</body>
+</html>
