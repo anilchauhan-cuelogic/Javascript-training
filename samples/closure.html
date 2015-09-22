@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script>
+
+			var myObject = function () { 
+				var value = 5;
+	         	return {
+        	    	increment: function (inc) {
+		                value += typeof inc === 'number' ? inc : 1;
+		            },
+					getValue: function () { 
+						return value;
+					} 
+				};
+			}();
+
+			myObject.increment(5);
+			document.writeln(myObject.getValue());
+
+			var quo = function (status) {
+	         		return {
+						get_status: function () { 
+							return status;
+					} 
+				};
+			};
+
+
+		    // Make an instance of quo.
+		    var myQuo = quo("amazed");
+		    
+			document.writeln(myQuo.get_status());
+
+			var fade = function (node) {
+
+	         	var level = 1;
+
+				var step = function () {
+					var hex = level.toString(16); 
+
+					node.style.backgroundColor = '#FFFF' + hex + hex;
+					
+					if (level < 15) {
+						level += 1;
+                		setTimeout(step, 100);
+	             	}
+				};
+				
+         		setTimeout(step, 100);
+	    	};
+
+     		fade(document.body);
+
+		</script>
+	</body>
+</html>

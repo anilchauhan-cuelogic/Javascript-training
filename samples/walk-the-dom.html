@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<div name = "hello">
+			<span>Hello Anil</span>
+		</div>
+		<script>
+			var walk_the_dom = function walk(node, func){
+				func(node);
+				node = node.firstChild;
+				while(node) {
+					walk(node, func);
+					node = node.nextSibling;
+				}
+			}
+
+			var getElementsByAttribute = function (att, value) {
+		         var results = [];
+		         walk_the_dom(document.body, function (node) {
+		         	
+		            var actual = node.nodeType === 1 && node.getAttribute(att);
+		            
+		            if (typeof actual === 'string' && (actual === value || typeof value !== 'string')) {
+
+	                	results.push(node);
+					} 
+				});
+				return results;
+		    };
+		    
+		    console.log(getElementsByAttribute('name'));
+		</script>
+	</body>
+</html>
