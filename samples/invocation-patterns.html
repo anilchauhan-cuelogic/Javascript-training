@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script>
+			//Invocation Patterns
+			//method invocation pattern
+			
+			var myObject = {
+				value : 0,
+				increment : function(inc){
+					this.value += typeof inc === 'number' ? inc : 1;
+				},
+				getValue : function(){
+					return this.value;
+				}
+			}
+
+			myObject.increment();
+			document.writeln(myObject.getValue());
+
+			myObject.increment(2);
+			document.writeln(myObject.getValue());
+
+			//function invocation pattern
+			
+			var add = function(a, b) {
+				return a + b;
+			}
+
+			document.writeln(add(3 , 4));
+
+			//Augment myObject with a double method
+			
+			myObject.double = function() {
+
+				var that  = this;
+
+				var helper = function(){
+					that.value = add(that.value, that.value);
+				};
+
+				helper();
+			}
+
+			myObject.double();
+			document.writeln(myObject.getValue());
+
+			//Construtor invocation pattern
+			
+			var Quo = function(string) {
+				this.status = string;
+			}
+
+			Quo.prototype.get_status = function () {
+				return this.status;
+			}
+
+			var myQuo = new Quo('confused');
+			document.writeln(myQuo.get_status());
+
+			//Apply invocation pattern
+			
+			var array = [3, 4];
+			var sum = add.apply(null, array);
+			document.writeln(sum);
+
+			var statusObject = {
+				status : 'A-OK'
+			};
+
+			var status = myQuo.get_status.apply(statusObject);
+
+			document.writeln(status);
+		</script>
+	</body>
+</html>
