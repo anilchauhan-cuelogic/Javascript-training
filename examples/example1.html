@@ -1,0 +1,15 @@
+<script type="text/javascript">
+
+	function doSomething() {
+	  return {
+	    then: function(callback) {
+	      var value = 42;
+	      callback(value);
+	    }
+	  };
+	}
+
+	doSomething().then(function(result) {
+	    document.writeln("Got a result ", result);
+	});
+</script>
