@@ -1,0 +1,40 @@
+<script type="text/javascript">
+
+function Promise(fn) {
+
+  var callback = null;
+  
+  this.then = function(cb) {
+  	console.log(5)
+    callback = cb;
+  };
+
+  function resolve(value) {
+  	console.log(4);
+    // force callback to be called in the next
+    // iteration of the event loop, giving
+    // callback a chance to be set by then()
+    setTimeout(function() {
+      callback(value);
+    }, 1);
+  }
+  console.log(2);
+  fn(resolve);
+
+}
+
+function doSomething() {
+	console.log(1);
+    return new Promise(function(resolve) {
+    	console.log(3);
+        var value = 42;
+        resolve(value);
+    });
+}
+
+doSomething().then(function(value) {
+	console.log(6);
+    document.writeln("got a value 	", value);
+});
+
+</script>
