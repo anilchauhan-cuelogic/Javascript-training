@@ -1,0 +1,52 @@
+<script type="text/javascript">
+  
+  function Promise(fn) {
+    var state = 'pending';
+    var value;
+    var deferred;
+
+    function resolve(newValue) {
+      value = newValue;
+      state = 'resolved';
+      //4
+      if(deferred) {
+        handle(deferred);
+      }
+    }
+
+    function handle(onResolved) {
+      //6
+      if(state === 'pending') {
+        deferred = onResolved;
+        return;
+      }
+
+      onResolved(value);
+    }
+
+    this.then = function(onResolved) {
+      //5
+      handle(onResolved);
+    };
+
+    //2
+    fn(resolve);
+  }
+
+  function doSomething() {
+      //1
+      return new Promise(function(resolve) {
+          var value = 42;
+          //3
+          resolve(value);
+      });
+  }
+
+  var promise = doSomething();
+
+  promise.then(function(value) {
+    //7
+    document.writeln("got a value ", value);
+  });
+
+</script>
