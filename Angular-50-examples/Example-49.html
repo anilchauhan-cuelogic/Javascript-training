@@ -1,11 +1,14 @@
+<!-- Extracting controllers into a separate module. -->
+
 <html ng-app="countryApp">
   <head>
     <meta charset="utf-8">
     <title>Angular.js Example</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
+    <script src="/controllers/countryController.js"></script>
     <script>
-      var countryApp = angular.module('countryApp', ['ngRoute']);
+      var countryApp = angular.module('countryApp', ['ngRoute', 'countryController']);
 
       countryApp.config(['$routeProvider', function (routeProvider) {
         routeProvider.
@@ -13,7 +16,7 @@
             templateUrl: '/templates/country-list.html',
             controller: 'CountryListCtrl'
           }).
-          when('/:countryName', {
+          when('/:countryId', {
             templateUrl: '/templates/country-detail.html',
             controller: 'CountryDetailCtrl'
           }).
@@ -23,17 +26,39 @@
       }]);
 
       countryApp.factory('countries', function ($http) {
+
+        function getData(callback) {
+          $http({
+            method: 'GET',
+            url: 'countries.json',
+            cache: true
+          }).success(callback);
+        }
+
+        function findDetails(id, callback) {
+  	      $http({
+  	       	method: 'GET',
+  	       	url: 'country_'+id+'.json',
+  	       	cache: true
+  	       }).success(callback);
+        }
+
         return {
-          list: function(callback){
-            $http.get('countries.json').success(callback);
+          list: getData,
+          find: findDetails
+        };
+      });
+
+      countryApp.directive('country', function () {
+        return {
+          scope: {
+            country: '='
           },
-          find: function(name, callback){
-            $http.get('countries.json').success(function(data){
-              var country = data.filter(function(entry){
-                return entry.name = name;
-              })[0];
-              
-              callback(country);
+          restrict: 'A',
+          templateUrl: '/templates/country.html',
+          controller: function($scope, countries){
+            countries.find($scope.country.id, function(country) {
+              $scope.flagURL = country.flagURL;
             });
           }
         };
@@ -47,9 +72,13 @@
 
       countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams, countries){
 
-        countries.find($routeParams.countryName, function(country){
+        countries.find($routeParams.countryId, function(country){
           $scope.country = country;
         });
+      });
+
+      countryApp.filter('encodeURI', function(){
+        return window.encodeURI;
       });
     </script>
   </head>
