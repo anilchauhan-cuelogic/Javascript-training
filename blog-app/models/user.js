@@ -3,15 +3,13 @@ var mongoose = require('../database').mongoose,
 	SALT_WORK_FACTOR = 10;
 
 var schema = {
-	name : {
-		firstname: {
-			type : String,
-			required : true
-		},
-		lastname : {
-			type : String,
-			required : true
-		}
+	firstname: {
+		type : String,
+		required : true
+	},
+	lastname : {
+		type : String,
+		required : true
 	},
 	email : {
     	type : String,

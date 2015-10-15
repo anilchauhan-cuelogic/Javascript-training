@@ -5,23 +5,17 @@ exports.register = {
 	validate : validator.register(),
     handler  : function (request, reply) {
         
-		validator.checkEmailExists(request, function (err, message){
-			
-			if(err) reply(err);
-			
-			if(message.status == 'available'){
-				
+		validator.checkEmailExists(request)
+			.then(function(){
 				var user = new User(request.payload);
-				
-				user.saveAsync()
-					.then(function() {
-						reply({status: 'success'});
-					})
-					.catch(function(e) {
-						reply(e);
-					});
-			}
-		});
+				return user.saveAsync();
+			})
+			.then(function(user){
+				reply(user);
+			})
+			.catch(function(e){
+				reply(e);
+			});
     }	
 };
 
